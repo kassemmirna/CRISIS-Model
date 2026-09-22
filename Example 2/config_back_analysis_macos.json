@@ -1,0 +1,90 @@
+{
+  "=================================================================": "",
+  "//": "WHAT THIS FILE IS — This is a configuration file, not a program (macOS version). It is where you type in all the inputs needed to run back_analysis.py (the CRISIS back-analysis source code) from the terminal / command line, as an alternative to using the CRISIS GUI. As set up below, this file stays in the CRISIS_Code folder next to back_analysis.py, and the path fields point out to a separate input-data folder (e.g. a sibling folder like ../Example 2) — adjust those paths if you keep the input data and this file together in the same folder instead. Fill in the values below, save the file, then from within CRISIS_Code run: python3 back_analysis.py config_back_analysis_macos.json",
+  "=================================================================": "",
+
+  "=================================================================": "",
+  "//": "PROJECT DETAILS — project_title (always fill in). analyst_name (optional, leave empty if not needed). project_date (optional, leave empty if not needed). site_location (optional, leave empty if not needed). notes (optional, leave empty if not needed).",
+
+  "▼ ENTER YOUR VALUES BELOW ▼": "",
+
+  "project_title": "Example 2",
+  "analyst_name":  "Mirna Kassem",
+  "project_date":  "06-29-2026",
+  "site_location": "Utuado, Puerto Rico",
+  "notes":         "Hurricane Maria; 436 mapped landslides",
+
+  "=================================================================": "",
+  "//": "OUTPUT — output_dir: path (relative or absolute) to the folder where outputs should be saved, e.g. \"../Example 2\" (always fill in). A subfolder {project_title}_Outputs is created automatically inside. Coordinate_Reference_System: EPSG code of your study area projection (always fill in).",
+
+  "▼ ENTER YOUR VALUES BELOW ▼": "",
+
+  "output_dir":                  "../Example 2",
+  "Coordinate_Reference_System": "EPSG:6566",
+
+  "=================================================================": "",
+  "//": "RASTER INPUTS — dem_file: path (relative or absolute) to the DEM file, including the folder it's in — either an HDF5 (.h5) file, e.g. \"../Example 2/Example 2 Inputs/DEM.h5\", or a GeoTIFF (.tif/.tiff), e.g. \"../Example 2/Example 2 Inputs/DEM.tif\" (always fill in). IMPORTANT: if dem_file is a GeoTIFF, Cell_size/xmin/ymin in the SCALAR INPUTS section below are auto-derived from it and will silently override whatever you enter there — they only take effect for an HDF5 DEM. A GeoTIFF must be in a projected CRS in meters (not geographic/degrees) or it will be rejected with an error.",
+
+  "▼ ENTER YOUR VALUES BELOW ▼": "",
+
+  "dem_file":               "../Example 2/Example 2 Inputs/DEM.tif",
+
+  "=================================================================": "",
+  "//": "MAPPED LANDSLIDE DATA — landslide_ids_file: path (relative or absolute) to the ID.xlsx file containing a single column of landslide IDs with no header, e.g. \"../Example 2/Example 2 Inputs/ID.xlsx\" (always fill in). landslide_files_dir: path (relative or absolute) to the folder containing the LD{ID}.xlsx files, e.g. \"../Example 2/Example 2 Inputs\" (always fill in). Each LD{ID}.xlsx needs a header row (any text — required, since row 1 is always skipped; without it the first data row is misread as the header) followed by one data row, columns in this order (read by position, not by header text): Mapped Area (m²), Mapped Centroid X (m), Mapped Centroid Y (m), Mapped Volume (m³) — Centroid X/Y can be extracted from your mapped polygons in GIS software using the same projected coordinate system as the rest of the model.",
+
+  "▼ ENTER YOUR VALUES BELOW ▼": "",
+
+  "landslide_ids_file":  "../Example 2/Example 2 Inputs/ID.xlsx",
+  "landslide_files_dir": "../Example 2/Example 2 Inputs",
+
+  "=================================================================": "",
+  "//": "SCALAR INPUTS — Cell_size: DEM resolution in meters (always fill in). Gamma_soil: unit weight of soil in kN/m³ (always fill in). z_min: minimum depth from the surface — 0 if exactly at the surface, or the center of the uppermost layer; must match the hydrological model's discretization (always fill in). z_max: deepest depth you want to study — bottom edge or center of the last layer; same consistency rule as z_min (always fill in). Depth_points: number of subsurface depth layers discretizing z_min to z_max — must match the number of depth layers in the pore pressure directory (always fill in). Time_points: number of time steps — must match the number of time steps in the pore pressure directory (always fill in). xmin: easting of the center of the lower-left DEM cell in meters (always fill in). ymin: northing of the center of the lower-left DEM cell in meters (always fill in). R_search: search-radius scaling factor (always fill in).",
+
+  "▼ ENTER YOUR VALUES BELOW ▼": "",
+
+  "Cell_size":    0.999682,
+  "Gamma_soil":   22.0,
+  "z_min":        0.125,
+  "z_max":        2.875,
+  "Depth_points": 12,
+  "Time_points":  31,
+  "xmin":         175679.712756,
+  "ymin":         241404.301767,
+  "R_search":     1.2,
+
+  "=================================================================": "",
+  "//": "PARALLELISM — n_workers: number of CPU cores to use for parallel processing (one core per landslide). Set to null to use all available cores (default, recommended for desktop use). On HPC, set this to the number of cores allocated to your job (e.g. the value of $SLURM_CPUS_PER_TASK).",
+
+  "▼ ENTER YOUR VALUES BELOW ▼": "",
+
+  "n_workers": null,
+
+  "=================================================================": "",
+  "//": "SHEAR STRENGTH SEARCH RANGE — C_single_min / C_single_max / C_single_increment: cohesion search range in kPa (always fill in). Phi_single_min / Phi_single_max / Phi_single_increment: friction angle search range in degrees (always fill in). The model evaluates every (c, Phi) combination on these grids and selects the one that minimises the matching error for each mapped landslide.",
+
+  "▼ ENTER YOUR VALUES BELOW ▼": "",
+
+  "C_single_min":         0.0,
+  "C_single_max":         30.0,
+  "C_single_increment":   2.0,
+  "Phi_single_min":       25.0,
+  "Phi_single_max":       55.0,
+  "Phi_single_increment": 2.0,
+
+  "=================================================================": "",
+  "//": "HYDROLOGY — hydro_files_dir: path (relative or absolute) to the folder containing the Pressure_head_T{t}Z{d+1}.h5 files, e.g. \"../Example 2/Example 2 Inputs\" (always fill in). Depth_points and Time_points set above must match the depth layers and time steps in this directory.",
+
+  "▼ ENTER YOUR VALUES BELOW ▼": "",
+
+  "hydro_files_dir": "../Example 2/Example 2 Inputs",
+
+  "=================================================================": "",
+  "//": "VOLUMETRIC WATER CONTENT — Strength_variation_with_theta: 0 = Bishop coefficient χ = 1 (fully saturated assumption), 1 = χ varies with saturation (always fill in). theta_files_dir: path (relative or absolute) to the folder containing the Theta_T{t}Z{d+1}.h5 files, e.g. \"../Example 2/Example 2 Inputs\" (fill in only if Strength_variation_with_theta = 1, otherwise leave empty). Theta_s: saturated volumetric water content (fill in only if Strength_variation_with_theta = 1, otherwise leave as null). Theta_r: residual volumetric water content (fill in only if Strength_variation_with_theta = 1, otherwise leave as null).",
+
+  "▼ ENTER YOUR VALUES BELOW ▼": "",
+
+  "Strength_variation_with_theta": 0,
+  "theta_files_dir": "",
+  "Theta_s": null,
+  "Theta_r": null
+}
