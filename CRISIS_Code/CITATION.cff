@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+type: article
+authors:
+  - family-names: Kassem
+    given-names: M.
+  - family-names: Zekkos
+    given-names: D.
+title: "Assessing rainfall-induced landslide failure mechanisms in regional hydrological and hillslope stability simulations"
+journal: "Landslides"
+year: 2026
+start: 1
+end: 20
+doi: "10.1007/s10346-025-02690-w"
